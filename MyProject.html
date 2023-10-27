@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Sort Data by Age</title>
+</head>
+<body>
+    <h1>Sort Data by Age</h1>
+    <button onclick="sortDataByAge()">Sort Data</button>
+    <div id="output"></div>
+
+    <script>
+        // Merge Sort Algorithm for sorting by age
+        function mergeSortByAge(data) {
+            if (data.length <= 1) {
+                return data;
+            }
+
+            const mid = Math.floor(data.length / 2);
+            const left = data.slice(0, mid);
+            const right = data.slice(mid);
+
+            return merge(mergeSortByAge(left), mergeSortByAge(right));
+        }
+
+        function merge(left, right) {
+            let result = [];
+            let leftIndex = 0;
+            let rightIndex = 0;
+
+            while (leftIndex < left.length && rightIndex < right.length) {
+                if (left[leftIndex].age < right[rightIndex].age) {
+                    result.push(left[leftIndex]);
+                    leftIndex++;
+                } else {
+                    result.push(right[rightIndex]);
+                    rightIndex++;
+                }
+            }
+
+            return result.concat(left.slice(leftIndex)).concat(right.slice(rightIndex));
+        }
+
+        // Main function to sort and display data
+        function sortDataByAge() {
+            const dataset = [
+                { name: "Alice", age: 28 },
+                { name: "Bob", age: 35 },
+                { name: "Charlie", age: 22 },
+                { name: "David", age: 40 },
+                { name: "Eve", age: 31 },
+                { name: "Frank", age: 29 },
+                { name: "Grace", age: 45 },
+                { name: "Henry", age: 33 },
+                { name: "Ivy", age: 26 },
+                { name: "Jack", age: 27 },
+                { name: "Karen", age: 30 },
+                { name: "Liam", age: 24 },
+                { name: "Mia", age: 36 },
+                { name: "Noah", age: 23 },
+                { name: "Olivia", age: 41 },
+                { name: "Peter", age: 39 },
+                { name: "Quinn", age: 32 },
+                { name: "Rachel", age: 37 },
+                { name: "Sam", age: 34 },
+                { name: "Tina", age: 38 },
+                { name: "Ursula", age: 29 },
+                { name: "Vincent", age: 25 },
+                { name: "Wendy", age: 42 },
+                { name: "Xander", age: 26 },
+                { name: "Yvonne", age: 43 },
+                { name: "Zach", age: 31 }
+            ];
+
+            const sortedData = mergeSortByAge(dataset);
+
+            const outputDiv = document.getElementById("output");
+            outputDiv.innerHTML = "<h2>Sorted Data by Age:</h2>";
+
+            sortedData.forEach(function (person) {
+                outputDiv.innerHTML += `${person.name}: ${person.age}<br>`;
+            });
+        }
+    </script>
+</body>
+</html>
